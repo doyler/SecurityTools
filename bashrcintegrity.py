@@ -6,7 +6,6 @@ import os
 import requests
 import shutil
 import smtplib
-import urllib2
 
 def calculateOriginalValues(fileUrl, tempFile):
     r = requests.get(fileUrl)
