@@ -3,9 +3,11 @@ from email.MIMEText import MIMEText
 import getpass
 import hashlib
 import os
+from os.path import basename
 import requests
 import shutil
 import smtplib
+from urlparse import urlparse
 
 def calculateOriginalValues(fileUrl, tempFile):
     r = requests.get(fileUrl)
@@ -15,19 +17,17 @@ def calculateOriginalValues(fileUrl, tempFile):
     with open(tempFile, "rb") as f:
         return hashlib.md5(f.read()).hexdigest()
     
-def compareHashes(originalHash, originalFile):
-    # Calculate MD5 of .bashrc
-    with open(".bashrc", "rb") as f:
+def compareHashes(originalHash, originalFile, fileName):
+    with open(fileName, "rb") as f:
         calculated_md5 = hashlib.md5(f.read()).hexdigest()
 
-    # Compare original MD5 hash with calculated MD5 hash
     if originalHash == calculated_md5:
         print "MD5 verified."
         return None
     else:
         print "MD5 verification failed!"
         
-        file1 = open(".bashrc", "rb").readlines()
+        file1 = open(fileName, "rb").readlines()
         file2 = open(originalFile, "rb").readlines()
 
         diff = difflib.ndiff(file1, file2)
@@ -38,8 +38,8 @@ def compareHashes(originalHash, originalFile):
             shutil.rmtree("modified")
             os.makedirs("modified")
 
-        os.rename(".bashrc", "modified/.bashrc_modified")
-        os.rename(originalFile, ".bashrc")
+        os.rename(fileName, "modified/"+fileName+"_modified")
+        os.rename(originalFile, fileName)
 
         differences = ""
         
@@ -83,9 +83,10 @@ def main():
     fileUrl = ("https://raw.githubusercontent.com/"
                "doyler/BashrcIntegrity/master/.bashrc")
     tempFile = "temp.txt"
+    fileName = basename(urlparse(fileUrl).path)
     
     originalHash = calculateOriginalValues(fileUrl, tempFile)
-    diffString = compareHashes(originalHash, tempFile)
+    diffString = compareHashes(originalHash, tempFile, fileName)
     if diffString is not None:
         sendEmail("email.conf", diffString)
     else:
