@@ -54,7 +54,7 @@ def compareHashes(originalHash, originalFile, fileName):
             pass
         return differences
 
-def sendEmail(configFile, diffString):
+def sendEmail(configFile, diffString, isSSL, hasAuth):
     config = {}
     execfile(configFile, config) 
 
@@ -71,11 +71,13 @@ def sendEmail(configFile, diffString):
     headers = "\r\n".join(headers)
 
     server = smtplib.SMTP(config["server"], config["serverPort"])
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
-    password = getpass.getpass("Enter the password for " + sender + ": ")
-    server.login(sender, password)
+    if isSSL:
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+    if hasAuth:
+        password = getpass.getpass("Enter the password for " + sender + ": ")
+        server.login(sender, password)
     server.sendmail(sender, recipient, headers + "\r\n\r\n" + body)
     server.close()
 
@@ -88,7 +90,7 @@ def main():
     originalHash = calculateOriginalValues(fileUrl, tempFile)
     diffString = compareHashes(originalHash, tempFile, fileName)
     if diffString is not None:
-        sendEmail("email.conf", diffString)
+        sendEmail("email.conf", diffString, True, True)
     else:
         if os.path.isfile(tempFile):
             os.remove(tempFile)
