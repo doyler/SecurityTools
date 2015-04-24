@@ -82,7 +82,7 @@ def sendEmail(configFile, diffString, isSSL, hasAuth):
 
 def main():
     fileUrl = ("https://raw.githubusercontent.com/"
-               "doyler/BashrcIntegrity/master/.bashrc")
+               "doyler/FileIntegrity/master/.bashrc")
     tempFile = "temp.txt"
     fileName = basename(urlparse(fileUrl).path)
     
