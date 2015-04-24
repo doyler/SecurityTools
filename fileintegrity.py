@@ -1,5 +1,4 @@
 import difflib
-from email.MIMEText import MIMEText
 import getpass
 import hashlib
 import os
