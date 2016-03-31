@@ -16,6 +16,7 @@ A PHP web shell and its Python based client
 
 # TODO
 * Add ability to easily obsfucate shell.php
+* Add client specific functionality similar to meterpreter (upload, download, etc.)
 * Include randomly generated filenames for server.php (similar to Metasploit payloads)
 * Look into better methods of encryption or encoding for the traffic
 * Handle all exit cases better
