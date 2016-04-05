@@ -22,3 +22,6 @@ A PHP web shell and its Python based client
 * Handle all exit cases better
 * Perform OS detection and better prompt displays
 * Look into the ability to change directories (change the prompt, prepend the current directory to any requests?)
+* Switch from GET to POST or cookies (GET is logged, HTTP 414 errors, etc.)
+* Pseudo random key for forward-secrecy
+* Better encoded version to avoid detection (grep, AI-Bolit)
