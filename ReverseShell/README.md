@@ -12,3 +12,4 @@ A (currently single-client) reverse shell written in Python
 * Add support for at least encoding, if not encrypting
 * Look into client specific commands similar to meterpreter
 * Test, and avoid, detection
+* Improve error handling and persistence
