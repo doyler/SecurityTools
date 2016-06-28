@@ -5,14 +5,14 @@ A PHP web shell and its Python based client
 * Encoded communication
 * Pseudo-interactive shell
 
-![Execution](http://www.doyler.net/wp-content/uploads/rwsh/rwsh-1-execution.png)
+![Execution](https://www.doyler.net/wp-content/uploads/rwsh/rwsh-1-execution.png)
 * Cleaner output formatting than PHP passthru
 * Hostname and username (whoami) detection
 * (Mostly) Clean exiting
 * Ability to still interact with via a browser
 * Obfuscated server (this is possible with most/all web shells, I just provide one with it)
 
-![Browser](http://www.doyler.net/wp-content/uploads/rwsh/rwsh-2-browser.png)
+![Browser](https://www.doyler.net/wp-content/uploads/rwsh/rwsh-2-browser.png)
 
 # TODO
 * Add ability to easily obsfucate shell.php
