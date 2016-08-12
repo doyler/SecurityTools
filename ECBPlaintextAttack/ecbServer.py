@@ -8,9 +8,9 @@ import string
 
 blockSize = 16
 encKey = "ENCRYPTIONKEY123"
-#secret = "mys3cretP@ssword!"
-before = ""
-#before = "ENCRYPT:"
+secret = "mys3cretP@ssword!"
+prepend = ""
+#prepend = "ENCRYPT:"
 chars = string.ascii_letters + string.digits + string.punctuation
 secret = ''.join(random.choice(chars) for _ in range(random.randint(1,1000)))
 
@@ -29,10 +29,10 @@ def encrypt(input):
 	if (input is None) or (len(input) == 0):
 		print "Input text cannot be null or empty"
 
-	input += secret
-	input = pad(before + input)
+	toEncrypt = prepend + input + secret
+	toEncrypt = pad(toEncrypt)
 	cipher = AES.AESCipher(encKey, AES.MODE_ECB)
-	cipherText = cipher.encrypt(input)
+	cipherText = cipher.encrypt(toEncrypt)
 	return cipherText.encode("hex")
 
 def decrypt(input):

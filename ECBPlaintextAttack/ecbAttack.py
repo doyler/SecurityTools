@@ -61,7 +61,7 @@ try:
             data = s.recv(8192)
             oracle = list(chunkstring(data, 32))
             #print "ORACLE: " + str(oracle)
-            compareBlock = (len(message2) / 16)
+            compareBlock = (len(prependChars + message2) / 16) - 1
             #print "COMPARE = " + str(compareBlock)
             if oracle[compareBlock] == initialReturn[compareBlock]:
                 secret += chr(i)
