@@ -122,9 +122,9 @@ def getOption(key, value):
 def unpackOfferPacket(data, transactionID):
     # en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol#DHCP_offer
 
-    #print ':'.join(x.encode('hex') for x in data)
+    #print(':'.join(x.encode('hex') for x in data))
     if (data[4:8] == transactionID):
-        print '\nDHCP SERVER FOUND!\n-------------------'
+        print('\nDHCP SERVER FOUND!\n-------------------')
         
         offerIP = strToIP(data[16:20])
         nextServerIP = strToIP(data[20:24])
@@ -144,7 +144,7 @@ def unpackOfferPacket(data, transactionID):
         for key in optionsDict:
             optionsOut.append(getOption(key, optionsDict[key]))
 
-        #print optionsOut
+        #print(optionsOut)
 
         # Current iteration may not properly support more than one DNS server
         """
@@ -161,11 +161,11 @@ def unpackOfferPacket(data, transactionID):
         """
             
         for i in range(len(optionsOut)):
-            print '{0:25s} : {1:15s}'.format(optionsOut[i][0], optionsOut[i][1])
+            print('{0:25s} : {1:15s}'.format(optionsOut[i][0], optionsOut[i][1]))
 
-        print '{0:25s} : {1:15s}'.format('Offered IP Address', offerIP)
-        print '{0:25s} : {1:15s}'.format('Gateway IP Address', nextServerIP)
-        print ''
+        print('{0:25s} : {1:15s}'.format('Offered IP Address', offerIP))
+        print('{0:25s} : {1:15s}'.format('Gateway IP Address', nextServerIP))
+        print('')
 
 dhcpSrv = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 dhcpSrv.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
@@ -174,7 +174,7 @@ dhcpSrv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 try:
     dhcpSrv.bind(('192.168.5.100', 68))
 except Exception as ex:
-    print 'There was an exception with the bind: ' + str(ex)
+    print('There was an exception with the bind: ' + str(ex))
     dhcpSrv.close()
     #exit()
 
@@ -182,16 +182,16 @@ transactionID = genTransactionID()
 
 dhcpSrv.sendto(buildDiscoverPacket(transactionID), ('<broadcast>', 67))
 
-print '\nDHCP Discover sent, waiting for reply\n'
+print('\nDHCP Discover sent, waiting for reply\n')
 
 dhcpSrv.settimeout(3)
 try:
     while (1):
         data = dhcpSrv.recv(2048)
-        #print str(data)
+        #print(str(data))
         unpackOfferPacket(data, transactionID)
 except Exception as ex:
     if 'timed out' not in ex:
-        print 'There was an exception with the offer: ' + str(ex)
+        print('There was an exception with the offer: ' + str(ex))
 
 dhcpSrv.close()

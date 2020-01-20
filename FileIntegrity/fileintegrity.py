@@ -6,7 +6,7 @@ from os.path import basename
 import requests
 import shutil
 import smtplib
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 def calculateOriginalValues(fileUrl, tempFile):
     r = requests.get(fileUrl)
@@ -21,10 +21,10 @@ def compareHashes(originalHash, originalFile, fileName):
         calculated_md5 = hashlib.md5(f.read()).hexdigest()
 
     if originalHash == calculated_md5:
-        print "MD5 verified."
+        print("MD5 verified.")
         return None
     else:
-        print "MD5 verification failed!"
+        print("MD5 verification failed!")
         
         file1 = open(fileName, "rb").readlines()
         file2 = open(originalFile, "rb").readlines()
@@ -44,7 +44,7 @@ def compareHashes(originalHash, originalFile, fileName):
         
         try:
             while 1:
-                diff_string = diff.next()
+                diff_string = next(diff)
                 if not (diff_string[0] == " "):
                     differences += diff_string + "\r\n"
             if diff is None:
@@ -55,7 +55,7 @@ def compareHashes(originalHash, originalFile, fileName):
 
 def sendEmail(configFile, diffString, isSSL, hasAuth):
     config = {}
-    execfile(configFile, config) 
+    exec(compile(open(configFile).read(), configFile, 'exec'), config) 
 
     sender = config["sender"]
     recipient = config["recipient"]

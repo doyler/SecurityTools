@@ -29,7 +29,7 @@ def expandRange(inRange):
     try:
         startIP = IPAddress(splitRange[0])
     except:
-        print "***** ERROR *****: " + splitRange[0]
+        print("***** ERROR *****: " + splitRange[0])
 
     endRange = splitRange[1]
 
@@ -39,12 +39,12 @@ def expandRange(inRange):
             endNet = str(IPNetwork(str(startIP).strip() + '/24').network)
             endIP = endNet.rsplit(".", 1)[0] + "." + endRange    
         else:
-            print "***** ERROR *****: " + endRange
+            print("***** ERROR *****: " + endRange)
     except ValueError:
         try:
             endIP = IPAddress(endRange)
         except:
-            print "***** ERROR *****: " + splitRange[0]
+            print("***** ERROR *****: " + splitRange[0])
 
     return list(iter_iprange(startIP, endIP))
 
@@ -75,7 +75,7 @@ def main():
             expanded = expandRange(line)
             finalList.extend(expanded)
         else:
-            print "***** ERROR *****: " + line
+            print("***** ERROR *****: " + line)
 
     newFile(sorted(finalList), inFile)
 

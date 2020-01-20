@@ -27,7 +27,7 @@ def unpad(input):
 
 def encrypt(input):
 	if (input is None) or (len(input) == 0):
-		print "Input text cannot be null or empty"
+		print("Input text cannot be null or empty")
 
 	toEncrypt = prepend + input + secret
 	toEncrypt = pad(toEncrypt)
@@ -37,7 +37,7 @@ def encrypt(input):
 
 def decrypt(input):
 	if (input is None) or (len(input) == 0):
-		print "Input text cannot be null or empty"
+		print("Input text cannot be null or empty")
 
 	encrypted = input.decode("hex")
 	cipher = AES.AESCipher(encKey, AES.MODE_ECB)
@@ -45,14 +45,14 @@ def decrypt(input):
 	return plainText
 
 def main():
-	print "SECRET LENGTH: " + str(len(secret))
-	print "SECRET = " + secret
+	print("SECRET LENGTH: " + str(len(secret)))
+	print("SECRET = " + secret)
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 	server_address = ('localhost', 10000)
-	print "\nStarting up on %s port %s" % server_address
+	print("\nStarting up on %s port %s" % server_address)
 	s.bind(server_address)
 
 	s.listen(1)
@@ -64,12 +64,12 @@ def main():
 	   		while True:
 	   			data = connection.recv(2048)
 	   			if data:
-	   				#print "DATA: " + data
+	   				#print("DATA: " + data)
 	   				input = data.rstrip()
-	   				print "INPUT: " + input
-	   				print "HEX: " + input.encode("hex")
+	   				print("INPUT: " + input)
+	   				print("HEX: " + input.encode("hex"))
 	   				encrypted = encrypt(input)
-	   				print "ENCRYPTED: " + encrypted
+	   				print("ENCRYPTED: " + encrypted)
 	   				connection.send(encrypted)
 	   			else:
 	   				break

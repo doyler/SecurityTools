@@ -1,5 +1,5 @@
 import dns.resolver
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 myResolver = dns.resolver.Resolver()
 domain = "dns.exfil.com"

@@ -26,18 +26,18 @@ def main():
     dq = modinv(e,(q-1))
     qi = modinv(q,p)
 
-    print "asn1=SEQUENCE:rsa_key"
-    print ""
-    print "[rsa_key]"
-    print "version=INTEGER:0"
-    print "modulus=INTEGER:" + str(n)
-    print "pubExp=INTEGER:" + str(e)
-    print "privExp=INTEGER:" + str(d)
-    print "p=INTEGER:" + str(p)
-    print "q=INTEGER:" + str(q)
-    print "e1=INTEGER:" + str(dp)
-    print "e2=INTEGER:" + str(dq)
-    print "coeff=INTEGER:" + str(qi)
+    print("asn1=SEQUENCE:rsa_key")
+    print("")
+    print("[rsa_key]")
+    print("version=INTEGER:0")
+    print("modulus=INTEGER:" + str(n))
+    print("pubExp=INTEGER:" + str(e))
+    print("privExp=INTEGER:" + str(d))
+    print("p=INTEGER:" + str(p))
+    print("q=INTEGER:" + str(q))
+    print("e1=INTEGER:" + str(dp))
+    print("e2=INTEGER:" + str(dq))
+    print("coeff=INTEGER:" + str(qi))
 
 if __name__ == "__main__":
     main()

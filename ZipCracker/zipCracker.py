@@ -5,7 +5,7 @@ def main():
     try:
         myZip = zipfile.ZipFile("secret.zip")
     except zipfile.BadZipfile:
-        print "[!] There was an error opening your zip file."
+        print("[!] There was an error opening your zip file.")
         return
 
     password = ''
@@ -18,8 +18,8 @@ def main():
             try:
                 myZip.extractall(pwd = password)
                 totalTime = time() - timeStart
-                print "\nPassword cracked: %s\n" % password
-                print "%i password attempts per second." % (pass_count/totalTime)
+                print("\nPassword cracked: %s\n" % password)
+                print("%i password attempts per second." % (pass_count/totalTime))
                 return
             except Exception as e:
                 if str(e[0]) == 'Bad password for file':
@@ -27,8 +27,8 @@ def main():
                 elif 'Error -3 while decompressing' in str(e[0]):
                     pass # TODO: properly handle exceptions?
                 else:
-                    print e
-        print "Sorry, password not found."
+                    print(e)
+        print("Sorry, password not found.")
 
 if __name__ == '__main__':
 	main()

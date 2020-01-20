@@ -25,7 +25,7 @@ try:
     from org.python.core.util import StringUtil
     import string
 except ImportError:
-    print "Failed to load dependencies."
+    print("Failed to load dependencies.")
 
 VERSION = "1.0"
 callbacks = None
@@ -75,7 +75,7 @@ class BurpExtender(IBurpExtender, IScannerInsertionPointProvider, IScannerCheck)
         callbacks.registerScannerInsertionPointProvider(self)
         callbacks.registerScannerCheck(self)
 
-        print "Successfully loaded VERBalyzer v" + VERSION
+        print("Successfully loaded VERBalyzer v" + VERSION)
         return
 
     # helper method to search a response for occurrences of a literal match string

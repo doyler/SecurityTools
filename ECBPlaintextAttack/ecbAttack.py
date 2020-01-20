@@ -42,7 +42,7 @@ try:
 
     secretLen = ((curLen - 1) * 16) - extra - len(prependChars)
 
-    print "SECRETLEN: " + str(secretLen)
+    print("SECRETLEN: " + str(secretLen))
 
     while not found:
         initialBlock = "A" * (16 - len(prependChars))
@@ -53,25 +53,25 @@ try:
         s.sendall(message1)
         data = s.recv(8192)
         initialReturn = list(chunkstring(data, 32))
-        #print "INITIAL: " + str(initialReturn)
+        #print("INITIAL: " + str(initialReturn))
 
         for i in range(33, 127):
             message2 = message1 + secret + chr(i)
             s.sendall(message2)
             data = s.recv(8192)
             oracle = list(chunkstring(data, 32))
-            #print "ORACLE: " + str(oracle)
+            #print("ORACLE: " + str(oracle))
             compareBlock = (len(prependChars + message2) / 16) - 1
-            #print "COMPARE = " + str(compareBlock)
+            #print("COMPARE = " + str(compareBlock))
             if oracle[compareBlock] == initialReturn[compareBlock]:
                 secret += chr(i)
-                #print "LENGTH: " + str(len(secret))
-                #print "SECRET: " + secret
-                #print "INITIAL: " + str(initialReturn)
-                #print "ORACLE: " + str(oracle)
+                #print("LENGTH: " + str(len(secret)))
+                #print("SECRET: " + secret)
+                #print("INITIAL: " + str(initialReturn))
+                #print("ORACLE: " + str(oracle))
                 if len(secret) == secretLen:
                     found = True
-                    print secret
+                    print(secret)
                 break
     
 finally:

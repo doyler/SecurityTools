@@ -14,4 +14,4 @@ if __name__ == "__main__":
 			ctr = 0
 		ctr += 1
 	shellcode += "\""
-	print shellcode
+	print(shellcode)
