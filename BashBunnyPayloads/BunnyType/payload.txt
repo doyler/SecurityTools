@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# Title:         BunnyType
+# Author:        doylersec
+# Version:       1.0
+# Target:        Windows
+#
+# Types the contents of a file into the application of your choosing.
+# Best used for environments where copy and paste isn't available, or for large
+# files that you cannot access over the internet/local network/mass storage devices.
+#
+#
+# Blue   --- Setup and opening the application
+# Yellow --- Typing the contents
+# Green  --- Done
+#
+
+ATTACKMODE HID
+
+LED B
+
+# Gets the switch position
+GET SWITCH_POSITION
+
+application="notepad"
+file="/root/udisk/payloads/${SWITCH_POSITION}/file.txt"
+mytab=`echo -e "\t"`
+newline=`echo -e "\n"`
+
+# Checks to see if file.txt is present, and if so, reads it into a variable
+if [ ! -f "/root/udisk/payloads/${SWITCH_POSITION}/file.txt" ] ; then
+    LED FAIL
+    exit 1
+fi
+
+# Open the application
+Q GUI r
+Q DELAY 100
+Q STRING ${application}
+Q ENTER
+
+LED Y
+
+# Type out the payload, including white-space replacement
+IFS=''
+while read -n1 c; do
+    if [ "$c" == "$newline" ] ; then
+        Q ENTER
+    elif [ "$c" == "$mytab" ] ; then
+        Q TAB
+    elif [ "$c" == " " ] ; then
+        Q SPACE
+    else
+        Q STRING "$c"
+    fi
+done &lt; "$file"
+
+LED G
